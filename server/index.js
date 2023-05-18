@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const authRoute = require('./routes/auth');
+const clubRoute = require('./routes/club');
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 
 // Route Middlewares
 app.use('/api/user', authRoute);
+app.use('/api/club', clubRoute);
 
 
 const main = async () => {
