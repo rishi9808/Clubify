@@ -24,4 +24,16 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+// Get club by id
+router.get("/:id", async (req, res) => {
+    try {
+        const club = await Club.findById(req.params.id).exec();
+        res.send({ club });
+    } catch (err) {
+        res.status(500).send({ error: err.message });
+        console.log(err);
+    }
+})
+
 module.exports = router;
