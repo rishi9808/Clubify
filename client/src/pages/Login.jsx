@@ -3,9 +3,9 @@ import Forms from "../components/Forms.jsx";
 import { API_URL } from "../const";
 
 const loginInputs = [
-  { name: "email" , type: "email" , label: "Email Id"},
-  { name:"password" , type: "password" , label: "Password"},
-]
+  { name: "email", type: "email", label: "Email Id" },
+  { name: "password", type: "password", label: "Password" },
+];
 
 const Login = () => {
   const loginUser = async (formData) => {

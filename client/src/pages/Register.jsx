@@ -1,38 +1,38 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Forms } from "../components/Forms.jsx"
+import { Forms } from "../components/Forms.jsx";
 import { API_URL } from "../const";
 
 const registrationInputs = [
   {
     name: "name",
     type: "text",
-    label: "Name"
+    label: "Name",
   },
   {
     name: "email",
     type: "email",
-    label: "Email Id"
+    label: "Email Id",
   },
   {
     name: "password",
     type: "password",
-    label: "Password"
+    label: "Password",
   },
   {
     name: "regNo",
     type: "text",
-    label: "Register Number"
+    label: "Register Number",
   },
   {
     name: "branch",
     type: "text",
-    label: "Branch"
+    label: "Branch",
   },
   {
     name: "batch",
     type: "number",
-    label: "Batch"
+    label: "Batch",
   },
 ];
 
@@ -73,6 +73,6 @@ const Register = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Register;
