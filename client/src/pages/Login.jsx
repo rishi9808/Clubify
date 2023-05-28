@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Forms from "../components/Forms.jsx";
-import { API_URL } from "../const";
-import { login } from "../state/slices/loginSlice.js"
+import fetcher from "../utils/fetcher.js";
+import { login } from "../state/slices/loginSlice.js";
 
 const loginInputs = [
   { name: "email", type: "email", label: "Email Id" },
@@ -14,21 +14,18 @@ const Login = () => {
 
   const loginUser = async (formData) => {
     try {
-      const response = await fetch(`${API_URL}/api/user/login`, {
+      const response = await fetcher("api/user/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(formData),
       });
 
       if (response.status === 200) {
         const data = await response.json();
         console.log(data);
-        const {user , token} = data;
+        const { user, token } = data;
         localStorage.setItem("token", token);
         alert("login successful");
-        dispatch(login({user, token}));
+        dispatch(login({ user, token }));
         //window.location.href = '/'
       } else {
         console.log("login failed!!! Check your email or password");

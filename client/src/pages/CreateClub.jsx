@@ -1,6 +1,6 @@
 import React from "react";
 import { Forms } from "../components/Forms";
-import { API_URL } from "../const";
+import fetcher from "../utils/fetcher";
 
 const createClubInputs = [
   { name: "name", type: "text", label: "Club name" },
@@ -21,12 +21,12 @@ const CreateClub = () => {
     console.log(adminEmails);
 
     try {
-      const response = await fetch(`${API_URL}/api/club/`, {
+      const response = await fetcher("api/club/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name: formData.name, admin_emails: adminEmails }),
+        body: JSON.stringify({
+          name: formData.name,
+          admin_emails: adminEmails,
+        }),
       });
 
       //console.log(response);

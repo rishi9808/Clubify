@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Forms } from "../components/Forms.jsx";
-import { API_URL } from "../const";
+import fetcher from "../utils/fetcher.js";
 
 const registrationInputs = [
   {
@@ -41,11 +41,8 @@ const Register = () => {
 
   const registerUser = async (formData) => {
     try {
-      const response = await fetch(`${API_URL}/api/user/register`, {
+      const response = await fetcher("api/user/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(formData),
       });
 
