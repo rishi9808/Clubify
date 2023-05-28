@@ -5,7 +5,7 @@ import { API_URL } from "../const";
 const createClubInputs = [
   { name: "name", type: "text", label: "Club name" },
   {
-    name: "adminEmails",
+    name: "admin_emails",
     type: "text",
     label: "Admin emails (comma-separated)",
   },
@@ -13,7 +13,7 @@ const createClubInputs = [
 
 const CreateClub = () => {
   async function registerClub(formData) {
-    const adminEmails = formData.adminEmails
+    const adminEmails = formData.admin_emails
       .split(",")
       .map((email) => email.trim())
       .filter((email) => email !== "");
@@ -26,12 +26,12 @@ const CreateClub = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ clubName: formData.name, adminEmails }),
+        body: JSON.stringify({ name: formData.name, admin_emails: adminEmails }),
       });
 
-      console.log(response);
+      //console.log(response);
       const data = await response.json();
-
+      console.log(data);
       if (response.status === 200) {
         alert("Club registration successful");
         // navigate("/login");

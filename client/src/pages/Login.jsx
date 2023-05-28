@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Forms from "../components/Forms.jsx";
 import { API_URL } from "../const";
+import { login } from "../state/slices/loginSlice.js"
 
 const loginInputs = [
   { name: "email", type: "email", label: "Email Id" },
@@ -8,6 +10,8 @@ const loginInputs = [
 ];
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const loginUser = async (formData) => {
     try {
       const response = await fetch(`${API_URL}/api/user/login`, {
@@ -21,13 +25,13 @@ const Login = () => {
       if (response.status === 200) {
         const data = await response.json();
         console.log(data);
-        console.log(data.token);
-        console.log("login successful");
-        alert("Login successful");
-        localStorage.setItem("token", data.token);
+        const {user , token} = data;
+        localStorage.setItem("token", token);
+        alert("login successful");
+        dispatch(login({user, token}));
         //window.location.href = '/'
       } else {
-        console.log("login failed");
+        console.log("login failed!!! Check your email or password");
         const error = await response.text();
         alert(error);
       }
