@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const verifyToken = require('./helper/verifyToken');
 
 const authRoute = require('./routes/auth');
 const clubRoute = require('./routes/club');
@@ -22,6 +23,22 @@ app.get('/', (req, res) => {
 });
 
 // Route Middlewares
+//this middleware checks which user is accessing the routes using the token and stores the user in req.user
+app.use(async(req, res, next) => {
+    try{
+        const auth = req.headers["authorization"];
+        if (auth) {
+            const token = auth.replace("Bearer ", "");
+            const user = await verifyToken(token);
+            req.user = user;
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+    next();
+});
+
 app.use('/api/user', authRoute);
 app.use('/api/club', clubRoute);
 
