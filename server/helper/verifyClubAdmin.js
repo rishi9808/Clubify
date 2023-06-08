@@ -8,3 +8,5 @@ const verifyClubAdmin = (club , user) => {
         throw new Error("User is not a club admin");
     }
 }
+
+module.exports = verifyClubAdmin;

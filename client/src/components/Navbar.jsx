@@ -15,18 +15,21 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-between items-center bg-gray-200 p-4">
-        <h1 className="text-xl font-bold">Clubify</h1>
-        <div className="text-white font-bold ">
-          {loginState.user ? (
+      <h1 className="text-xl font-bold">Clubify</h1>
+      <div className="text-white font-bold ">
+        {loginState.user ? (
+          <>
             <Navlink link="/profile">{loginState.user.name}</Navlink>
-          ) : (
-            <>
-              <Navlink link="/login">Login</Navlink>
-              <Navlink link="/register">Register</Navlink>
-            </>
-          )}
-        </div>
+            <Navlink link="/login">Logout</Navlink>
+          </>
+        ) : (
+          <>
+            <Navlink link="/login">Login</Navlink>
+            <Navlink link="/register">Register</Navlink>
+          </>
+        )}
       </div>
+    </div>
   );
 };
 

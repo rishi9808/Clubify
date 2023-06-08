@@ -28,12 +28,12 @@ const Login = () => {
         localStorage.setItem("token", token);
         alert("login successful");
         dispatch(login({ user, token }));
-        navigate("/club")
+        navigate(`/user/${user._id}`)
         //window.location.href = '/'
       } else {
-        console.log("login failed!!! Check your email or password");
+        alert("login failed!!! Check your email or password");
         const error = await response.text();
-        alert(error);
+        console.log(error);
       }
     } catch (error) {
       console.log(error);

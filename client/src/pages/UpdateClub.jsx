@@ -17,7 +17,7 @@ const CreateClub = () => {
 
   async function registerClub(formData) {
     const res = await fetcher(`api/club/${id}`, {
-      method: " POST",
+      method: "POST",
       body: JSON.stringify(formData),
     });
 

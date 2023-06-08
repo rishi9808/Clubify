@@ -46,4 +46,17 @@ router.get('/verifyToken', async(req, res) => {
         }
 });
 
+router.get("/:id", async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id }) 
+        res.send(user); 
+        console.log("id =", req.params.id);
+        console.log(user);
+
+
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
 module.exports = router;

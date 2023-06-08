@@ -53,7 +53,7 @@ router.get("/:id", async (req, res) => {
 router.post("/:id", async(req , res) => {
   try{
     const club = await Club.findOne({_id : req.params.id })
-    verifyClubAdmin(req.user, club)
+    verifyClubAdmin(club, req.user);
     const { name } = req.body;
     club.name = name;
     await club.save();
