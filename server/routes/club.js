@@ -2,6 +2,7 @@ const Club = require("../model/Club");
 const User = require("../model/User");
 const router = require("express").Router();
 const checkSuperAdmin = require("../helper/checkSuperAdmin");
+const verifyClubAdmin = require("../helper/verifyClubAdmin");
 
 // Create a club
 router.post("/",checkSuperAdmin, async (req, res) => {
@@ -46,5 +47,21 @@ router.get("/:id", async (req, res) => {
     console.log(err);
   }
 });
+
+
+// club update
+router.post("/:id", async(req , res) => {
+  try{
+    const club = await Club.findOne({_id : req.params.id })
+    verifyClubAdmin(req.user, club)
+    const { name } = req.body;
+    club.name = name;
+    await club.save();
+    res.send(club);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+    console.log(err);
+  }
+})
 
 module.exports = router;
