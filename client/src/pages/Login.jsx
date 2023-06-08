@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Forms from "../components/Forms.jsx";
 import fetcher from "../utils/fetcher.js";
 import { login } from "../state/slices/loginSlice.js";
@@ -11,6 +12,7 @@ const loginInputs = [
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const loginUser = async (formData) => {
     try {
@@ -26,6 +28,7 @@ const Login = () => {
         localStorage.setItem("token", token);
         alert("login successful");
         dispatch(login({ user, token }));
+        navigate("/club")
         //window.location.href = '/'
       } else {
         console.log("login failed!!! Check your email or password");

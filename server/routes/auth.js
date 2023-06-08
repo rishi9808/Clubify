@@ -39,15 +39,11 @@ router.post('/login', async(req, res) => {
 })
 
 router.get('/verifyToken', async(req, res) => {
-    try {
         if (req.user) {
             res.send({ user: req.user });
         } else {
-            res.status(401).send({ error: "Invalid token" });
+            res.status(400).send({ error: "Invalid token" });
         }
-    } catch (err) {
-        res.status(500).send({ error: err.message });
-    }
 });
 
 module.exports = router;

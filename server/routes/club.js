@@ -1,9 +1,10 @@
 const Club = require("../model/Club");
 const User = require("../model/User");
 const router = require("express").Router();
+const checkSuperAdmin = require("../helper/checkSuperAdmin");
 
 // Create a club
-router.post("/", async (req, res) => {
+router.post("/",checkSuperAdmin, async (req, res) => {
   try {
     const { name, admin_emails } = req.body;
     const admins = [];
