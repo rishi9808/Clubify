@@ -28,7 +28,7 @@ const Login = () => {
         localStorage.setItem("token", token);
         alert("login successful");
         dispatch(login({ user, token }));
-        navigate(`/user/${user._id}`)
+        navigate(`/user/${user._id}`);
         //window.location.href = '/'
       } else {
         alert("login failed!!! Check your email or password");

@@ -9,16 +9,15 @@ const Dashboard = () => {
 
   const getUserDetails = async () => {
     if (!id) {
-        return; // If id is undefined, exit the function
-      }
+      return; // If id is undefined, exit the function
+    }
 
-    console.log(id)
-  
+    console.log(id);
+
     const res = await fetcher(`api/user/${id}`, {
       method: "GET",
     });
 
-    
     const data = await res.json();
     console.log(data);
 
@@ -36,7 +35,7 @@ const Dashboard = () => {
   return userDetails ? (
     <div className="flex flex-col justify-center items-center bg-blue-100 m-2">
       <h1 className="text-xl uppercase text-2xl m-2 p-2">
-        Welcome {userDetails.name} 
+        Welcome {userDetails.name}
       </h1>
     </div>
   ) : (

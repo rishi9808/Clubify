@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import fetcher from "../utils/fetcher";
+import { useLoginState } from "../state/slices/loginSlice";
 
 const CreateClub = () => {
   const { id } = useParams();
@@ -9,35 +10,37 @@ const CreateClub = () => {
   const [clubDetails, setClubDetails] = useState(null);
   const [error, setError] = useState(false);
 
+  const clubAdmins = clubDetails ? clubDetails.admins : [];
+  const { user } = useLoginState();
+
+  const isClubAdmin = clubAdmins.includes(user?._id) || user?.superAdmin;
+
   const handleUpdate = () => {
     navigate(`/club/${id}/update`);
   };
 
   const handleDelete = async () => {
     const res = await fetcher(`api/club/${id}`, {
-        method: "DELETE",
-        });
-    
-    
+      method: "DELETE",
+    });
+
     if (res.status === 200) {
-        alert("Successfully deleted club");
-    }
-    else{
-        setError(true)
+      alert("Successfully deleted club");
+    } else {
+      setError(true);
     }
     navigate("/club");
-    };
-
+  };
 
   const getClubDetails = async () => {
     const res = await fetcher(`api/club/${id}`, {
       method: "GET",
     });
     if (res.status === 200) {
-        const data = await res.json();
-        setClubDetails(data);
+      const data = await res.json();
+      setClubDetails(data);
     } else {
-        setError(true);
+      setError(true);
     }
   };
 
@@ -62,17 +65,28 @@ const CreateClub = () => {
           </div>
         ))}
       </div>
-      <div>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2" onClick={handleUpdate}>
+      {isClubAdmin ? (
+        <div>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2"
+            onClick={handleUpdate}
+          >
             Update club
-        </button>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-2" onClick={handleDelete}>
+          </button>
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-2"
+            onClick={handleDelete}
+          >
             Delete club
-        </button>
-      </div>
+          </button>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   ) : (
     <div></div>
   );
 };
+
 export default CreateClub;

@@ -35,7 +35,7 @@ const CreateClub = () => {
       if (response.status === 200) {
         alert("Club registration successful");
         // navigate("/login");
-        navigate(`/club/${data._id}`)
+        navigate(`/club/${data._id}`);
       } else {
         alert("Club registration failed");
       }
