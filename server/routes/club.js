@@ -68,12 +68,63 @@ router.post("/:id", async (req, res) => {
 // Delete a club
 router.delete("/:id", async (req, res) => {
   try {
-    await Club.deleteOne({ _id: req.params.id });
+    // Check if user is a club admin
+    const club = await Club.findOne({ _id: req.params.id });
     verifyClubAdmin(club, req.user);
+
+    // Delete club
+    await club.deleteOne({ _id: req.params.id });
     res.send({ success: true });
   } catch (err) {
     res.status(500).send({ error: err.message });
     console.log(err);
+  }
+});
+
+
+// Add admin to club
+router.post("/:id/admin", async(req, res) => {
+  try{
+    // Check if user is a club admin
+    const club = await Club.findOne({ _id: req.params.id });
+    verifyClubAdmin(club, req.user);
+
+    const { admin_emails } = req.body;
+
+    const admins = club.admins.map((id) => id.toString())
+
+    // Check if admin_emails is an array
+    for (const email of admin_emails) {
+      const user = await User.findOne({ email }).exec();
+      const id = user._id.toString()
+      if(!admins.includes(id)){
+        admins.push(id)
+      }
+    }
+
+    club.admins = admins
+    await club.save()
+    res.send(club)
+
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({ error: err.message });
+  }
+});
+
+// Remove admin from club
+router.delete("/:clubId/admin/:userId", async(req, res) => {
+  try{
+    const club = await Club.findOne({ _id: req.params.clubId });
+    verifyClubAdmin(club, req.user);
+
+    const admin_id = req.params.userId
+    club.admins = club.admins.filter((id) => id.toString() !== admin_id)
+    await club.save()
+    res.send(club)
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({ error: err.message });
   }
 });
 
