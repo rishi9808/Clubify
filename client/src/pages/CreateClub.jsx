@@ -31,13 +31,11 @@ const CreateClub = () => {
         }),
       });
 
-      //console.log(response);
       const data = await response.json();
-      console.log(data);
       if (response.status === 200) {
         alert("Club registration successful");
         // navigate("/login");
-        navigate("/club-details")
+        navigate(`/club/${data._id}`)
       } else {
         alert("Club registration failed");
       }

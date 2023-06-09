@@ -5,7 +5,7 @@ const checkSuperAdmin = require("../helper/checkSuperAdmin");
 const verifyClubAdmin = require("../helper/verifyClubAdmin");
 
 // Create a club
-router.post("/",checkSuperAdmin, async (req, res) => {
+router.post("/", checkSuperAdmin, async (req, res) => {
   try {
     const { name, admin_emails } = req.body;
     const admins = [];
@@ -21,7 +21,9 @@ router.post("/",checkSuperAdmin, async (req, res) => {
       if (user) {
         admins.push(user._id);
       } else {
-        return res.status(400).send({ error: `User not found for email: ${email}` });
+        return res
+          .status(400)
+          .send({ error: `User not found for email: ${email}` });
       }
     }
 
@@ -48,11 +50,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
 // club update
-router.post("/:id", async(req , res) => {
-  try{
-    const club = await Club.findOne({_id : req.params.id })
+router.post("/:id", async (req, res) => {
+  try {
+    const club = await Club.findOne({ _id: req.params.id });
     verifyClubAdmin(club, req.user);
     const { name } = req.body;
     club.name = name;
@@ -62,6 +63,18 @@ router.post("/:id", async(req , res) => {
     res.status(500).send({ error: err.message });
     console.log(err);
   }
-})
+});
+
+// Delete a club
+router.delete("/:id", async (req, res) => {
+  try {
+    await Club.deleteOne({ _id: req.params.id });
+    verifyClubAdmin(club, req.user);
+    res.send({ success: true });
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+    console.log(err);
+  }
+});
 
 module.exports = router;

@@ -7,23 +7,37 @@ const CreateClub = () => {
   const navigate = useNavigate();
 
   const [clubDetails, setClubDetails] = useState(null);
+  const [error, setError] = useState(false);
 
   const handleUpdate = () => {
     navigate(`/club/${id}/update`);
   };
 
+  const handleDelete = async () => {
+    const res = await fetcher(`api/club/${id}`, {
+        method: "DELETE",
+        });
+    
+    
+    if (res.status === 200) {
+        alert("Successfully deleted club");
+    }
+    else{
+        setError(true)
+    }
+    navigate("/club");
+    };
+
+
   const getClubDetails = async () => {
     const res = await fetcher(`api/club/${id}`, {
       method: "GET",
     });
-    const data = await res.json();
-    console.log(data);
-
-    if (data) {
-      setClubDetails(data);
+    if (res.status === 200) {
+        const data = await res.json();
+        setClubDetails(data);
     } else {
-      res.err({ error: data.error });
-      navigate("/club");
+        setError(true);
     }
   };
 
@@ -48,9 +62,14 @@ const CreateClub = () => {
           </div>
         ))}
       </div>
-      <button className="border-1 bg-blue-200 m-2" onClick={handleUpdate}>
-        Update Club
-      </button>
+      <div>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2" onClick={handleUpdate}>
+            Update club
+        </button>
+        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-2" onClick={handleDelete}>
+            Delete club
+        </button>
+      </div>
     </div>
   ) : (
     <div></div>
