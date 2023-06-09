@@ -10,6 +10,7 @@ const ClubSchema = new mongoose.Schema(
       max: 50,
     },
     admins: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
   },
   { timestamps: true }
 );
