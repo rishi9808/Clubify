@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Forms } from "../components/Forms";
 import fetcher from "../utils/fetcher";
 import { useNavigate, useParams } from "react-router-dom";
+import PrizesInput from "../components/PrizeInput";
 
 const UpdateEvent = () => {
   const navigate = useNavigate();
@@ -23,10 +24,10 @@ const UpdateEvent = () => {
       defaultValue: eventDetails?.description,
     },
     {
-      name: "eventType",
+      name: "type",
       type: "text",
       label: "Event Type",
-      defaultValue: eventDetails?.details?.eventType,
+      defaultValue: eventDetails?.details?.type,
     },
     {
       name: "registrationFee",
@@ -61,7 +62,10 @@ const UpdateEvent = () => {
   ];
 
   async function updateEvent(formData) {
-    const transformedData = transformFomData(formData);
+    const transformedData = transformFomData({
+      ...formData,
+      prizes: eventDetails.prizes,
+    });
 
     const response = await fetcher(`api/event/${eventId}`, {
       method: "POST",
@@ -95,7 +99,15 @@ const UpdateEvent = () => {
   return eventDetails ? (
     <div className="flex flex-col justify-center items-center m-2">
       <h1 className="text-xl uppercase">Update {eventDetails.name} </h1>
-      <Forms inputs={updateEventInputs} onSubmit={updateEvent} />
+      <Forms inputs={updateEventInputs} onSubmit={updateEvent}>
+        <PrizesInput
+          prizes={eventDetails.prizes}
+          onChange={(prizes) =>
+            setEventDetails((data) => ({ ...data, prizes }))
+          }
+          showWinner={true}
+        />
+      </Forms>
     </div>
   ) : (
     <></>
@@ -112,8 +124,7 @@ const transformFomData = ({
   registrationStart,
   result,
   type,
-  isFreeEvent,
-  participationType,
+  registrationFee,
   prizes,
   participants,
 }) => {
@@ -122,8 +133,7 @@ const transformFomData = ({
     description,
     details: {
       type,
-      isFreeEvent,
-      participationType,
+      registrationFee,
     },
     dates: {
       start,

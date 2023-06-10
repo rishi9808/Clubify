@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Forms = ({ inputs, onSubmit }) => {
+export const Forms = ({ inputs, onSubmit, children }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(() => {
@@ -38,7 +38,7 @@ export const Forms = ({ inputs, onSubmit }) => {
       {inputs.map((item, index) => {
         const value =
           formData[item.name] && item.type === "date"
-            ? formData[item.name].toISOString().split("T")[0]
+            ? new Date(formData[item.name]).toISOString().split("T")[0]
             : formData[item.name];
 
         return (
@@ -55,6 +55,7 @@ export const Forms = ({ inputs, onSubmit }) => {
           </div>
         );
       })}
+      {children}
       <button
         className="form__submit m-2 p-1 border-2 rounded-lg uppercase bg-gray-300"
         type="submit"
@@ -66,7 +67,7 @@ export const Forms = ({ inputs, onSubmit }) => {
         className=" m-2 py-2 px-1 border-2 rounded-lg uppercase bg-gray-300"
         onClick={() => navigate(-1)} // go back
       >
-         Cancel
+        Cancel
       </button>
     </form>
   );
