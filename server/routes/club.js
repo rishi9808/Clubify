@@ -25,7 +25,7 @@ router.post("/", checkSuperAdmin, async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const club = await Club.findOne({ _id: req.params.id }).populate("admins");
+    const club = await Club.findOne({ _id: req.params.id }).populate("admins events");
 
     res.send(club);
   } catch (err) {
