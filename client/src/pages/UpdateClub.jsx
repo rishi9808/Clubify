@@ -3,7 +3,6 @@ import { Forms } from "../components/Forms";
 import fetcher from "../utils/fetcher";
 import { useNavigate, useParams } from "react-router-dom";
 
-const updateClubDetails = [{ name: "name", type: "text", label: "Club name" }];
 const updateClubAdminsInput = [
   {
     name: "adminEmails",
@@ -12,10 +11,19 @@ const updateClubAdminsInput = [
   },
 ];
 
-const CreateClub = () => {
+const UpdateClub = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [clubDetails, setClubDetails] = useState(null);
+
+  const updateClubDetails = [
+    {
+      name: "name",
+      type: "text",
+      label: "Club name",
+      defaultValue: clubDetails?.name,
+    },
+  ];
 
   const getClubDetails = async () => {
     const response = await fetcher(`api/club/${id}`, {
@@ -112,4 +120,4 @@ const CreateClub = () => {
   );
 };
 
-export default CreateClub;
+export default UpdateClub;
