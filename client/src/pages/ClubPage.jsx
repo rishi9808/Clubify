@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import fetcher from "../utils/fetcher";
+import { useNavigate, useParams } from "react-router-dom";
 import { useLoginState } from "../state/slices/loginSlice";
 
-const CreateClub = () => {
+const ClubPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [clubDetails, setClubDetails] = useState(null);
-  const [error, setError] = useState(false);
 
   const clubAdmins = clubDetails ? clubDetails.admins : [];
   const { user } = useLoginState();
@@ -19,69 +17,84 @@ const CreateClub = () => {
     navigate(`/club/${id}/update`);
   };
 
+  const handleCreateEvent = () => {
+    navigate(`/club/${id}/event`);
+  };
+
   const handleDelete = async () => {
-    const res = await fetcher(`api/club/${id}`, {
+    const response = await fetcher(`api/club/${id}`, {
       method: "DELETE",
     });
 
-    if (res.status === 200) {
-      alert("Successfully deleted club");
-    } else {
-      setError(true);
+    if (response.status === 200) {
+      alert("Successfully deleted");
     }
     navigate("/club");
   };
 
   const getClubDetails = async () => {
-    const res = await fetcher(`api/club/${id}`, {
+    const response = await fetcher(`api/club/${id}`, {
       method: "GET",
     });
-    if (res.status === 200) {
-      const data = await res.json();
+
+    if (response.status === 200) {
+      const data = await response.json();
       setClubDetails(data);
-    } else {
-      setError(true);
     }
   };
-
   useEffect(() => {
     getClubDetails();
   }, []);
 
   return clubDetails ? (
-    <div
-      className="flex flex-col justify-center items-center
-        bg-blue-100 m-2"
-    >
-      <h1 className="text-xl uppercase text-2xl m-2 p-2">{clubDetails.name}</h1>
+    <div className="flex flex-col justify-center items-center bg-blue-100 m-2">
+      <h1 className="text-xl uppercase  text-2xl m-2 p-2 ">
+        {clubDetails.name}
+      </h1>
       <div className="flex flex-col m-2">
-        <h2 className="text-xl uppercase m-1">Admins</h2>
-        {clubDetails.admins.map((admin, index) => (
+        {console.log("in react", clubDetails.events, clubDetails.admins)}
+        <h2 className=" text-xl uppercase text-xl m-1">Admins</h2>
+        {clubDetails.admins.map((item, index) => (
+          <div className="p-1" key={index}>
+            - {item.name}
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-col m-2">
+        <h2 className=" text-xl uppercase text-xl m-1">Events</h2>
+        {clubDetails.events.map((item, index) => (
           <div
-            className="flex flex-row justify-between items-center m-1"
+            className="p-1 cursor-pointer"
             key={index}
+            onClick={() => navigate(`/club/${id}/event/${item._id}`)}
           >
-            <p className="text-lg">{admin.name}</p>
+            - {item.name}
           </div>
         ))}
       </div>
       {isClubAdmin ? (
         <div>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2"
+            className="m-2 py-2 px-1 border-2 rounded-lg uppercase bg-blue-200"
             onClick={handleUpdate}
           >
-            Update club
+            Update Club
           </button>
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-2"
+            className="m-2 py-2 px-1 border-2 rounded-lg uppercase bg-blue-200"
+            onClick={handleCreateEvent}
+          >
+            Add Event
+          </button>
+          <button
+            className=" m-2 py-2 px-1 border-2 rounded-lg uppercase bg-blue-200"
             onClick={handleDelete}
           >
-            Delete club
+            Delete Club
           </button>
         </div>
       ) : (
-        <div></div>
+        <></>
       )}
     </div>
   ) : (
@@ -89,4 +102,4 @@ const CreateClub = () => {
   );
 };
 
-export default CreateClub;
+export default ClubPage;
