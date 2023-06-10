@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import EventPage from "./pages/EventPage.jsx";
 import CreateEvent from "./pages/CreateEvent.jsx";
 import UpdateEvent from "./pages/UpdateEvent.jsx";
+import Participants from "./pages/Participants.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function App() {
           <Route path="/club/:id/event" exact element={<CreateEvent />} />
           <Route path="/event/:eventId" exact element={<EventPage />} />
           <Route path="/event/:eventId/update" exact element={<UpdateEvent/>} />
+          <Route path="/event/:eventId/participants" exact element={<Participants/>} />
         </Routes>
       </BrowserRouter>
     </div>
