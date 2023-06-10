@@ -32,14 +32,12 @@ const Dashboard = () => {
     getUserDetails();
   }, [id]);
 
-  return userDetails ? (
+  return userDetails && (
     <div className="flex flex-col justify-center items-center bg-blue-100 m-2">
       <h1 className="text-xl uppercase text-2xl m-2 p-2">
         Welcome {userDetails.name}
       </h1>
     </div>
-  ) : (
-    <div></div>
   );
 };
 

@@ -66,7 +66,7 @@ const ClubPage = () => {
           <div
             className="p-1 cursor-pointer"
             key={index}
-            onClick={() => navigate(`/club/${id}/event/${item._id}`)}
+            onClick={() => navigate(`/event/${item._id}`)}
           >
             - {item.name}
           </div>
