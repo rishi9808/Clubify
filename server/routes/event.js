@@ -78,7 +78,7 @@ router.post("/:id", async (req, res) => {
     const club = await Club.findOne({ _id: req.body.clubId });
     verifyClubAdmin(club, req.user);
 
-    const { name , description, details , dates } = req.body;
+    const { name, description, details, dates } = req.body;
 
     const prizesArray = req.body.prizes;
     delete req.body.prizes;
@@ -93,7 +93,7 @@ router.post("/:id", async (req, res) => {
         winner: user?._id,
       });
     }
-    
+
     event.name = name;
     event.description = description;
     event.details = details;
@@ -110,10 +110,14 @@ router.post("/:id", async (req, res) => {
 router.post("/:id/register", async (req, res) => {
   try {
     const event = await Event.findOne({ _id: req.params.id });
-    if (!event.participants.includes(req.user._id))
+    const participant = await User.findOne({ _id: req.user._id });
+    if (!event.participants.includes(req.user._id)) {
+      participant.participatedEvents.push(event._id);
       event.participants.push(req.user._id);
+    }
 
     await event.save();
+    await participant.save();
     res.send(event);
   } catch (err) {
     console.log(err);
@@ -126,8 +130,13 @@ router.delete("/:id/participants", async (req, res) => {
   try {
     const event = await Event.findOne({ _id: req.params.id });
     const participantId = req.body.participant;
+    const participant = await User.findOne({ _id: participantId });
     event.participants = event.participants.filter(
       (id) => id.toString() !== participantId
+    );
+
+    participant.participatedEvents = participant.participatedEvents.filter(
+      (id) => id.toString() !== event._id
     );
     await event.save();
     res.send(event);

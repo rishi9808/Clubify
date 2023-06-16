@@ -3,6 +3,8 @@ const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+
+// register a new user
 router.post('/register', async(req, res) => {
     //  hash the password
     const salt = await bcrypt.genSalt(10)
@@ -23,7 +25,7 @@ router.post('/register', async(req, res) => {
     }
 })
 
-
+// login a user
 router.post('/login', async(req, res) => {
     // check if the email exists
     const user = await User.findOne({ email: req.body.email })
@@ -38,6 +40,7 @@ router.post('/login', async(req, res) => {
     res.send({ user , token: `Bearer ${token}`})
 })
 
+// verify the current user wheather they are registered or not
 router.get('/verifyToken', async(req, res) => {
         if (req.user) {
             res.send({ user: req.user });
@@ -46,17 +49,43 @@ router.get('/verifyToken', async(req, res) => {
         }
 });
 
+// get user details
 router.get("/:id", async (req, res) => {
     try {
-        const user = await User.findOne({ _id: req.params.id }) 
-        res.send(user); 
-        console.log("id =", req.params.id);
-        console.log(user);
+        const user = await User.findOne({ _id: req.params.id }).populate(
+            "participatedEvents adminOfClub"
+        )
+
+        res.send(user);
 
 
     } catch (err) {
+        console.log(err)
         res.status(400).send(err);
     }
 });
+
+// update user details
+router.post("/:id", async(req, res) => {
+    try{
+        const user = await User.findOne({ _id : req.params.id })
+
+        const { name, email, dateOfBirth, rollNo, branch, batch, mobileNo } = req.body
+
+        user.name = name
+        user.email = email
+        user.dateOfBirth = dateOfBirth
+        user.rollNo = rollNo
+        user.branch = branch
+        user.batch = batch
+        user.mobileNo = mobileNo
+
+        await user.save()
+        res.send(user)
+    } catch(err) {
+        console.log(err)
+        res.status(400).send(err)
+    }
+})
 
 module.exports = router;
