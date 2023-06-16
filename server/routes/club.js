@@ -35,7 +35,6 @@ router.get("/:id", async (req, res) => {
     const club = await Club.findOne({ _id: req.params.id }).populate(
       "admins events"
     );
-
     res.send(club);
   } catch (err) {
     console.log(err);
@@ -120,6 +119,17 @@ router.delete("/:clubId/admin/:userId", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(400).send({ error: err.message });
+  }
+});
+
+// get all club details  for dashborad
+router.get("/", async (req, res) => {
+  try {
+    const clubs = await Club.find({}).populate("admins events");
+    res.send(clubs);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
   }
 });
 
