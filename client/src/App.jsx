@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ViewActiveEvents from "./pages/ViewActiveEvents.jsx";
 import ViewClubs from "./pages/ViewClubs.jsx";
-import ProfileUpdate from "./pages/ProfileUpdate.jsx";
+import Profile from "./pages/Profile.jsx";
 import UpdateClub from "./pages/UpdateClub.jsx";
 import ClubPage from "./pages/ClubPage.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -54,7 +54,7 @@ function App() {
           <Route path="events" exact element={<ViewActiveEvents />} />
           <Route path="clubs" exact element={<ViewClubs />} />
           <Route path="/dashboard/:id" exact element={<Dashboard />} />
-          <Route path="dashboard/:id/profile" exact element={<ProfileUpdate />} />
+          <Route path="dashboard/:id/profile" exact element={<Profile />} />
           <Route path="/club" exact element={<CreateClub />} />
           <Route path="/club/:id" exact element={<ClubPage />} />
           <Route path="/club/:id/update" exact element={<UpdateClub />} />

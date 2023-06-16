@@ -15,13 +15,17 @@ const userSchema = new mongoose.Schema(
       max: 255,
       unique: true,
     },
+    dateOfBirth: {
+      type: Date,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
       min: 6,
       max: 1024,
     },
-    regNo: {
+    rollNo: {
       type: String,
       required: true,
       unique: true,
@@ -37,6 +41,11 @@ const userSchema = new mongoose.Schema(
       type: Number,
       required: true,
       length: 4,
+    },
+    mobileNo: {
+      type: Number,
+      required: true,
+      length: 10,
     },
     superAdmin: {
       type: Boolean,

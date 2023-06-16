@@ -35,6 +35,9 @@ const Navbar = () => {
       <div className="text-white font-bold text-sm mr-auto">
         {loginState.user && (
           <>
+            <Navlink link={`/dashboard/${loginState.user._id}`} >
+              Dashboard
+            </Navlink>
             <Navlink link="/clubs">Clubs</Navlink>
             <Navlink link="/events">Events</Navlink>
           </>)}
@@ -43,7 +46,7 @@ const Navbar = () => {
       <div className="text-white font-bold ">
         {loginState.user ? (
           <>
-              <Navlink link={`/dashboard/${loginState.user._id}`} >
+              <Navlink link={`/dashboard/${loginState.user._id}/profile`} >
                 {loginState.user.name}
               </Navlink>
               <button onClick={logoutUser} className="p-4 bg-blue-500 rounded-full p-4 m-2">
