@@ -34,7 +34,7 @@ export const Forms = ({ inputs, onSubmit, children }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-5">
       {inputs.map((item, index) => {
         const value =
           formData[item.name] && item.type === "date"
@@ -42,11 +42,19 @@ export const Forms = ({ inputs, onSubmit, children }) => {
             : formData[item.name];
 
         return (
-          <div key={index} className="form__group flex flex-col mb-2">
-            {item.label && <label htmlFor={item.name}>{item.label}</label>}
+          <div key={index} className="flex flex-col mb-5">
+            {item.label && (
+              <label
+                className="mb-1 text-xs tracking-wide text-gray-600"
+                htmlFor={item.name}
+              >
+                {item.label}
+              </label>
+            )}
+          
 
             <input
-              className="form__input m-1 p-1 border-2 rounded-sm"
+              className="text-sm placeholder-gray-400 border-2 rounded-lg p-1"
               id={item.name}
               {...item}
               value={value}
@@ -57,7 +65,7 @@ export const Forms = ({ inputs, onSubmit, children }) => {
       })}
       {children}
       <button
-        className="form__submit m-2 p-1 border-2 rounded-lg uppercase bg-gray-300"
+        className="flex mt-2 items-center justify-center focus:outline-none bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in"
         type="submit"
         onClick={handleSubmit}
       >
@@ -65,7 +73,7 @@ export const Forms = ({ inputs, onSubmit, children }) => {
       </button>
       <button
         type="submit"
-        className=" m-2 py-2 px-1 border-2 rounded-lg uppercase bg-gray-300"
+        className="flex mt-2 items-center justify-center focus:outline-none bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in"
         onClick={() => navigate(-1)} // go back
       >
         Cancel
