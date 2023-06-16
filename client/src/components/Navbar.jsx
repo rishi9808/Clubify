@@ -1,67 +1,76 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "../state/slices/loginSlice";
-import { useLoginState } from "../state";
-import { Link , useNavigate } from "react-router-dom";
+import React from "react"
+import { useDispatch } from "react-redux"
+import { logout } from "../state/slices/loginSlice"
+import { useLoginState } from "../state"
+import { useNavigate, NavLink as RRNavLink } from "react-router-dom"
 
-const Navlink = ({ link, children }) => {
+const NavLink = ({ link, children }) => {
   return (
-    <Link to={link} className="p-4 bg-blue-500 rounded-full p-4 m-2">
+    <RRNavLink
+      exact
+      to={link}
+      className={({ isActive }) =>
+        "px-2 py-2 m-1 border-b-2 hover:border-white " +
+        (isActive ? "border-white" : "border-transparent")
+      }
+    >
       {children}
-    </Link>
-  );
-};
+    </RRNavLink>
+  )
+}
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const loginState = useLoginState();
+  const navigate = useNavigate()
+  const loginState = useLoginState()
+  const dispatch = useDispatch()
 
-  const logoutUser = () => {
-    dispatch(logout());
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate("/login")
+  }
 
   return (
-    <div className="flex justify-between items-center bg-gray-200 p-4">
+    <header className=" flex items-center z-30 w-full bg-gray-800">
+      <div className="  mx-4 my-2  px-4 flex items-center w-full uppercase text-white font-bold">
+        <button
+          className="text-lg font-bold uppercase mr-8 focus:outline-none"
+          onClick={() => navigate("/")}
+        >
+          Clubify
+        </button>
 
-      <button
-        className = "text-white font-bold text-lg"
-        onClick={() => navigate("/")}
-      >
-        Clubify
-      </button>
-      <div className="text-white font-bold text-sm mr-auto">
-        {loginState.user && (
-          <>
-            <Navlink link={`/dashboard/${loginState.user._id}`} >
-              Dashboard
-            </Navlink>
-            <Navlink link="/clubs">Clubs</Navlink>
-            <Navlink link="/events">Events</Navlink>
-          </>)}
-      </div>
-      
-      <div className="text-white font-bold ">
-        {loginState.user ? (
-          <>
-              <Navlink link={`/dashboard/${loginState.user._id}/profile`} >
+        <div className=" flex text-white font-bold text-sm mr-auto">
+          {loginState.user && (
+            <>
+              <NavLink link={`/dashboard/${loginState.user._id}`}>dashboard</NavLink>
+              <NavLink link="/clubs">clubs</NavLink>
+              <NavLink link="/events">events</NavLink>
+            </>
+          )}
+        </div>
+        <div className="flex text-white font-bold text-sm ml-auto">
+          {loginState.user ? (
+            <>
+              <NavLink link={`/profile/${loginState.user._id}`}>
                 {loginState.user.name}
-              </Navlink>
-              <button onClick={logoutUser} className="p-4 bg-blue-500 rounded-full p-4 m-2">
+              </NavLink>
+              <button
+                className="font-bold uppercase py-2 px-2 m-1 focus:outline-none border-b-2 border-transparent hover:border-white"
+                onClick={handleLogout}
+              >
                 Logout
               </button>
-          </>
-        ) : (
-          <>
-            <Navlink link="/login">Login</Navlink>
-            <Navlink link="/register">Register</Navlink>
-          </>
-        )}
+            </>
+          ) : (
+            <>
+              <NavLink link="/login"> Login </NavLink>
+              <NavLink link="/register"> Register </NavLink>
+            </>
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    </header>
+  )
+}
 
-export default Navbar;
+export default Navbar

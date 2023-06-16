@@ -55,7 +55,7 @@ function App() {
           <Route path="events" exact element={<ViewActiveEvents />} />
           <Route path="clubs" exact element={<ViewClubs />} />
           <Route path="/dashboard/:id" exact element={<Dashboard />} />
-          <Route path="dashboard/:id/profile" exact element={<Profile />} />
+          <Route path="profile/:id" exact element={<Profile />} />
           <Route path="/club" exact element={<CreateClub />} />
           <Route path="/club/:id" exact element={<ClubPage />} />
           <Route path="/club/:id/update" exact element={<UpdateClub />} />
