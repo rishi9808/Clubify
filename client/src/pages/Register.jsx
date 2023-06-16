@@ -15,12 +15,17 @@ const registrationInputs = [
     label: "Email Id",
   },
   {
+    name: "dateOfBirth",
+    type: "date",
+    label: "Date of Birth",
+  },
+  {
     name: "password",
     type: "password",
     label: "Password",
   },
   {
-    name: "regNo",
+    name: "rollNo",
     type: "text",
     label: "Register Number",
   },
@@ -34,6 +39,11 @@ const registrationInputs = [
     type: "number",
     label: "Batch",
   },
+  {
+    name: "mobileNo",
+    type: "number",
+    label: "Mobile Number",
+  }
 ];
 
 const Register = () => {

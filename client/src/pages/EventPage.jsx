@@ -208,7 +208,7 @@ const EventPage = () => {
                       <div className="font-medium  text-sm text-gray-500">
                         {prize?.winner?.name
                           ? prize?.winner?.name
-                          : "poojakumari17032001@gmail.com"}
+                          : "rishikeshkaroth@gmail.com"}
                       </div>
                     </div>
                   ))}
