@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import fetcher from "../utils/fetcher";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import { useLoginState } from "../state/slices/loginSlice";
 
 const Participants = () => {
+  const navigate = useNavigate();
   const { eventId } = useParams();
   const [participants, setParticipants] = useState([]);
   const [eventDetails, setEventDetails] = useState(null);
@@ -53,28 +54,48 @@ const Participants = () => {
 
   return (
     eventDetails && (
-      <div className="flex flex-col justify-center text-center items-center bg-blue-100 m-2">
-        <h2 className="text-xl uppercase  text-2xl m-2 p-2 ">
-          {eventDetails.club.name} presents {eventDetails.name}
-          <p> Below are the list of all this participants</p>
-        </h2>
-        {participants &&
-          participants.map((user, index) => (
-            <div key={index} className="m-2">
-              <div>
-                <span className="mr-4">Name: {user.name}</span>
-                <span className="mr-4">Email: {user.email}</span>
-                {isClubAdmin && (
-                  <button
-                    className="m-2 py-2 px-1 border-2 rounded-lg uppercase bg-blue-200"
-                    onClick={() => handleRemove(user)}
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
+      <div className="min-h-screen flex flex-col items-center w-full bg-gray-100">
+        <div className="flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-3xl mt-5 w-full max-w-5xl">
+          <div className="font-medium self-center text-xl sm:text-3xl text-gray-800">
+            {eventDetails.club.name} presents {eventDetails.name}
+          </div>
+          {participants.length > 0 ? (
+            <div className="mt-4 self-center text-xl sm:text-sm text-gray-800">
+              Below are the list of all participants
             </div>
-          ))}
+          ) : (
+            <div className="mt-4 self-center text-xl sm:text-sm text-gray-800">
+              This event has no participants yet
+            </div>
+          )}
+          {participants &&
+            participants.map((user, index) => (
+              <div
+                key={index}
+                className="flex p-5 mt-8 space-x-4 items-center shadow-lg max-w-sm rounded-md"
+              >
+                <div className="flex">
+                  <div>
+                    <h2 className=" font-semibold text-lg">{user.name}</h2>
+                    <p className="mt-1 text-gray-400 text-sm cursor-pointer">
+                      {user.email}
+                    </p>
+                  </div>
+
+                  {isClubAdmin && (
+                    <>
+                      <button
+                        className="m-2 py-2 px-1 border-2 rounded-lg uppercase focus:outline-none text-white text-sm sm:text-base bg-gray-500 hover:bg-gray-600 rounded-lg  transition duration-150 ease-in"
+                        onClick={() => handleRemove(user)}
+                      >
+                        Remove
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
     )
   );
