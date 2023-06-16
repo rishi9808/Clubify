@@ -23,17 +23,14 @@ const Login = () => {
 
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         const { user, token } = data;
         localStorage.setItem("token", token);
         alert("login successful");
         dispatch(login({ user, token }));
-        navigate(`/user/${user._id}`);
+        navigate(`/dashboard/${user._id}`);
         //window.location.href = '/'
       } else {
         alert("login failed!!! Check your email or password");
-        const error = await response.text();
-        console.log(error);
       }
     } catch (error) {
       console.log(error);

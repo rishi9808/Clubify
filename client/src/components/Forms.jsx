@@ -34,7 +34,7 @@ export const Forms = ({ inputs, onSubmit, children }) => {
   };
 
   return (
-    <form className="form flex flex-col" onSubmit={handleSubmit}>
+    <div className="flex flex-col">
       {inputs.map((item, index) => {
         const value =
           formData[item.name] && item.type === "date"
@@ -59,6 +59,7 @@ export const Forms = ({ inputs, onSubmit, children }) => {
       <button
         className="form__submit m-2 p-1 border-2 rounded-lg uppercase bg-gray-300"
         type="submit"
+        onClick={handleSubmit}
       >
         Submit
       </button>
@@ -69,7 +70,7 @@ export const Forms = ({ inputs, onSubmit, children }) => {
       >
         Cancel
       </button>
-    </form>
+    </div>
   );
 };
 

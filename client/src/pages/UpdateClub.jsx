@@ -56,8 +56,6 @@ const UpdateClub = () => {
       body: JSON.stringify(formData),
     });
 
-    const data = await response.json();
-
     if (response.status === 200) {
       alert("Successfully updated club");
       navigate(`/club/${id}`);
