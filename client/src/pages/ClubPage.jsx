@@ -8,10 +8,10 @@ const ClubPage = () => {
   const navigate = useNavigate();
   const [clubDetails, setClubDetails] = useState(null);
 
-  const clubAdmins = clubDetails ? clubDetails.admins : [];
+  const clubAdmins = clubDetails?.admins;
   const { user } = useLoginState();
 
-  const isClubAdmin = clubAdmins.includes(user?._id) || user?.superAdmin;
+  const isClubAdmin = user?.adminOfClub.includes(clubDetails?._id) || user?.superAdmin;
 
   const handleUpdate = () => {
     navigate(`/club/${id}/update`);
@@ -46,7 +46,7 @@ const ClubPage = () => {
     getClubDetails();
   }, []);
 
-  return clubDetails ? (
+  return clubDetails && user ? (
     <div className="flex flex-col justify-center items-center bg-blue-100 m-2">
       <h1 className="text-xl uppercase  text-2xl m-2 p-2 ">
         {clubDetails.name}
