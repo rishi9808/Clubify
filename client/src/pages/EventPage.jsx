@@ -105,7 +105,7 @@ const EventPage = () => {
               <span>Type : {prize.type}</span> <br />
               <span>Amount : {prize.amount}</span>
               <br />
-              <span>Winner : {prize.winner.name}</span>
+              <span>Winner : {prize?.winner?.name}</span>
             </div>
           ))}
         </div>

@@ -78,6 +78,8 @@ router.post("/:id", async (req, res) => {
     const club = await Club.findOne({ _id: req.body.clubId });
     verifyClubAdmin(club, req.user);
 
+    const { name , description, details , dates } = req.body;
+
     const prizesArray = req.body.prizes;
     delete req.body.prizes;
     event.prizes = []; // removes all elements from array
@@ -88,13 +90,14 @@ router.post("/:id", async (req, res) => {
       event.prizes.push({
         type: prize.type,
         amount: prize.amount,
-        winner: user._id,
+        winner: user?._id,
       });
     }
-    for (const key in Object.keys(req.body)) {
-      event[key] = req.body[key];
-    }
-
+    
+    event.name = name;
+    event.description = description;
+    event.details = details;
+    event.dates = dates;
     await event.save();
     res.send(event);
   } catch (err) {
