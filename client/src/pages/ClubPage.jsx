@@ -52,7 +52,6 @@ const ClubPage = () => {
         {clubDetails.name}
       </h1>
       <div className="flex flex-col m-2">
-        {console.log("in react", clubDetails.events, clubDetails.admins)}
         <h2 className=" text-xl uppercase text-xl m-1">Admins</h2>
         {clubDetails.admins.map((item, index) => (
           <div className="p-1" key={index}>

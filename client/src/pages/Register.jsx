@@ -46,16 +46,12 @@ const Register = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
       if (response.status === 200) {
         alert("Registration successful");
         navigate("/login");
       } else {
         alert("Registration failed");
       }
-
-      console.log(data);
     } catch (error) {
       console.log(error);
       alert("An error occurred during registration");

@@ -72,8 +72,6 @@ const UpdateEvent = () => {
       body: JSON.stringify({ ...transformedData, club: clubId }),
     });
 
-    const data = await response.json();
-    console.log(data);
     if (response.status === 200) {
       alert("Successfully updated Event");
 

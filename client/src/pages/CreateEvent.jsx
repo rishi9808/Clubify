@@ -58,9 +58,8 @@ const CreateEvent = () => {
       body: JSON.stringify({ ...transformedData, club: id }),
     });
 
-    const data = await response.json();
-    console.log(data);
     if (response.status === 200) {
+      const data = await response.json();
       alert("Successfully registered Event");
       navigate(`/event/${data._id}`);
     }

@@ -20,7 +20,6 @@ const CreateClub = () => {
       .map((email) => email.trim())
       .filter((email) => email !== "");
 
-    console.log(adminEmails);
 
     try {
       const response = await fetcher("api/club/", {
