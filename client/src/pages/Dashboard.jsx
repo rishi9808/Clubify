@@ -42,23 +42,6 @@ const Dashboard = () => {
                   Below are all your participated events
                 </div>
               </div>
-
-              <div className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
-                <div className=" relative ">
-                  <input
-                    type="text"
-                    id='"form-subscribe-Search'
-                    className=" rounded-lg flex-1 border-2 border-gray-800 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none "
-                    placeholder="Enter a title"
-                  />
-                </div>
-                <button
-                  className="uppercase rounded-lg py-2 px-4 bg-gray-800 border-2 border-transparent text-white text-base mr-4 hover:bg-gray-900"
-                  type="submit"
-                >
-                  Search
-                </button>
-              </div>
             </div>
           ) : (
             <div className="mt-4 self-center text-xl sm:text-sm text-gray-800 ">
