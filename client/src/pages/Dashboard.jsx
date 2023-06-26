@@ -115,9 +115,9 @@ const Dashboard = () => {
             <div className="flex flex-col mt-2">
               <button
                 className=" m-2 py-2 px-1 border-2 rounded-lg uppercase bg-gray-800 hover:bg-gray-900 text-white"
-                onClick={() => navigate("/club")}
+                onClick={() => navigate(`/profile/${user._id}`)}
               >
-                Update profile
+                My profile
               </button>
               <button
                 className=" m-2 py-2 px-1 border-2 rounded-lg uppercase bg-gray-800 hover:bg-gray-900 text-white"

@@ -49,7 +49,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" exact element={<HomePage />} />
+          <Route path="/" exact element={<Dashboard />} />
           <Route path="/register" exact element={<Register />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="events" exact element={<ViewActiveEvents />} />
