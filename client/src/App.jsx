@@ -26,7 +26,7 @@ function App() {
   // Check if token in localStorage is valid and return user data
 
   const verifyToken = async (token) => {
-    const res = await fetcher("api/user/verifyToken", {
+    const res = await fetcher("https://clubify.onrender.com/api/user/verifyToken", {
       headers: {
         Authorization: token,
       },

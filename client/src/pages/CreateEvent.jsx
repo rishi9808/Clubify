@@ -53,7 +53,7 @@ const CreateEvent = () => {
   async function registerEvent(formData) {
     const transformedData = transformFomData({ ...formData, prizes });
 
-    const response = await fetcher("api/event/", {
+    const response = await fetcher("https://clubify.onrender.com/api/event/", {
       method: "POST",
       body: JSON.stringify({ ...transformedData, club: id }),
     });

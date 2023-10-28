@@ -10,7 +10,7 @@ const Profile = () => {
   const [userDetails, setUserDetails] = useState(null);
 
   const getUserDetails = async () => {
-    const response = await fetcher(`api/user/${id}`, {
+    const response = await fetcher(`https://clubify.onrender.com/api/user/${id}`, {
       method: "GET",
     });
 

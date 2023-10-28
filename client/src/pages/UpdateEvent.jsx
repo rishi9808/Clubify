@@ -67,7 +67,7 @@ const UpdateEvent = () => {
       prizes: eventDetails.prizes,
     });
 
-    const response = await fetcher(`api/event/${eventId}`, {
+    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}`, {
       method: "POST",
       body: JSON.stringify({ ...transformedData, club: clubId }),
     });
@@ -80,7 +80,7 @@ const UpdateEvent = () => {
   }
 
   const getEventDetails = async () => {
-    const response = await fetcher(`api/event/${eventId}`, {
+    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}`, {
       method: "GET",
     });
 

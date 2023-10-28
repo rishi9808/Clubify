@@ -7,7 +7,7 @@ const ViewActiveEvents = () => {
   const [eventDetails, setEventDetails] = useState(null);
 
   const getEventDetails = async () => {
-    const response = await fetcher("api/event/", {
+    const response = await fetcher("https://clubify.onrender.com/api/event/", {
       method: "GET",
     });
 
