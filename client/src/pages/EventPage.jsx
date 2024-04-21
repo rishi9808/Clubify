@@ -35,7 +35,7 @@ const EventPage = () => {
   }
 
   const handleDelete = async () => {
-    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}`, {
+    const response = await fetcher(`api/event/${eventId}`, {
       method: "DELETE",
     })
 
@@ -46,7 +46,7 @@ const EventPage = () => {
   }
 
   const getEventDetails = async () => {
-    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}`, {
+    const response = await fetcher(`api/event/${eventId}`, {
       method: "GET",
     })
 
@@ -57,7 +57,7 @@ const EventPage = () => {
   }
 
   const handleRegister = async () => {
-    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}/register`, {
+    const response = await fetcher(`api/event/${eventId}/register`, {
       method: "POST",
     })
     if (response.status === 200) {
@@ -67,7 +67,7 @@ const EventPage = () => {
   }
 
   const handleLeave = async (user) => {
-    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}/participants`, {
+    const response = await fetcher(`api/event/${eventId}/participants`, {
       method: "DELETE",
       body: JSON.stringify({ participant: user._id }),
     })

@@ -22,7 +22,7 @@ const CreateClub = () => {
 
 
     try {
-      const response = await fetcher("https://clubify.onrender.com/api/club/", {
+      const response = await fetcher("api/club/", {
         method: "POST",
         body: JSON.stringify({
           name: formData.name,

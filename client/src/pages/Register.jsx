@@ -51,7 +51,7 @@ const Register = () => {
 
   const registerUser = async (formData) => {
     try {
-      const response = await fetcher("https://clubify.onrender.com/api/user/register", {
+      const response = await fetcher("api/user/register", {
         method: "POST",
         body: JSON.stringify(formData),
       });

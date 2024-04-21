@@ -7,7 +7,7 @@ const ViewClubs = () => {
   const [clubDetails, setClubDetails] = useState(null);
 
   const getClubDetails = async () => {
-    const response = await fetcher("https://clubify.onrender.com/api/club/", {
+    const response = await fetcher("api/club/", {
       method: "GET",
     });
 

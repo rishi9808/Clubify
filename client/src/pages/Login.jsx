@@ -16,7 +16,7 @@ const Login = () => {
 
   const loginUser = async (formData) => {
     try {
-      const response = await fetcher("https://clubify.onrender.com/api/user/login", {
+      const response = await fetcher("api/user/login", {
         method: "POST",
         body: JSON.stringify(formData),
       });

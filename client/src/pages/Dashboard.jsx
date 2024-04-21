@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [userDetails, setUserDetails] = useState(null);
 
   const getUserDetails = async () => {
-    const res = await fetcher(`https://clubify.onrender.com/api/user/${user._id}`, {
+    const res = await fetcher(`api/user/${user._id}`, {
       method: "GET",
     });
 

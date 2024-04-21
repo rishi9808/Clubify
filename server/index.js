@@ -40,9 +40,9 @@ app.use(async(req, res, next) => {
     next();
 });
 
-app.use('/api/user', authRoute);
-app.use('/api/club', clubRoute);
-app.use('/api/event', eventRoute);
+app.use('api/user', authRoute);
+app.use('api/club', clubRoute);
+app.use('api/event', eventRoute);
 
 
 const main = async () => {

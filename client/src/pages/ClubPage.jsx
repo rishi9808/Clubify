@@ -22,7 +22,7 @@ const ClubPage = () => {
   };
 
   const handleDelete = async () => {
-    const response = await fetcher(`https://clubify.onrender.com/api/club/${id}`, {
+    const response = await fetcher(`api/club/${id}`, {
       method: "DELETE",
     });
 
@@ -33,7 +33,7 @@ const ClubPage = () => {
   };
 
   const getClubDetails = async () => {
-    const response = await fetcher(`https://clubify.onrender.com/api/club/${id}`, {
+    const response = await fetcher(`api/club/${id}`, {
       method: "GET",
     });
 

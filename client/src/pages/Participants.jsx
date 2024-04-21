@@ -14,7 +14,7 @@ const Participants = () => {
   const isClubAdmin = clubAdmins.includes(user?._id) || user?.superAdmin;
 
   const getParticipants = async () => {
-    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}/participants`, {
+    const response = await fetcher(`api/event/${eventId}/participants`, {
       method: "GET",
     });
 
@@ -25,7 +25,7 @@ const Participants = () => {
   };
 
   const getEventDetails = async () => {
-    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}`, {
+    const response = await fetcher(`api/event/${eventId}`, {
       method: "GET",
     });
 
@@ -36,7 +36,7 @@ const Participants = () => {
   };
 
   const handleRemove = async (user) => {
-    const response = await fetcher(`https://clubify.onrender.com/api/event/${eventId}/participants`, {
+    const response = await fetcher(`api/event/${eventId}/participants`, {
       method: "DELETE",
       body: JSON.stringify({ participant: user._id }),
     });

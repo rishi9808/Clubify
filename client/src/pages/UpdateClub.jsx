@@ -26,7 +26,7 @@ const UpdateClub = () => {
   ];
 
   const getClubDetails = async () => {
-    const response = await fetcher(`https://clubify.onrender.com/api/club/${id}`, {
+    const response = await fetcher(`api/club/${id}`, {
       method: "GET",
     });
 
@@ -37,7 +37,7 @@ const UpdateClub = () => {
   };
 
   const handleAdminRemove = async (adminId) => {
-    const response = await fetcher(`https://clubify.onrender.com/api/club/${id}/admin/${adminId}`, {
+    const response = await fetcher(`api/club/${id}/admin/${adminId}`, {
       method: "DELETE",
     });
 
@@ -51,7 +51,7 @@ const UpdateClub = () => {
   };
 
   async function updateClub(formData) {
-    const response = await fetcher(`https://clubify.onrender.com/api/club/${id}`, {
+    const response = await fetcher(`api/club/${id}`, {
       method: "POST",
       body: JSON.stringify(formData),
     });
@@ -68,7 +68,7 @@ const UpdateClub = () => {
       .map((email) => email.trim())
       .filter((email) => email);
 
-    const response = await fetcher(`https://clubify.onrender.com/api/club/${id}/admin`, {
+    const response = await fetcher(`api/club/${id}/admin`, {
       method: "POST",
       body: JSON.stringify({
         name: formData.name,
